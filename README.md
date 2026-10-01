@@ -10,4 +10,7 @@ In this project I have developed and analysed a protective collar strategy on an
 
 Running the code will generate 4 plots and an interactive slider controlling the number of trading days until maturity (out of 252 trading days in the maturity of one year). The following information is shown on the figure:
 
-1. The stock price and 
+1. The stock price and collar value against time until maturity. For each plot, time until maturity is measured as a proportion in the interval [0, 1].
+2. The put and call values against time until maturity
+3. The collar profit at maturity against the terminal stock price. Put and call strikes are plotted as dashed vertical lines at prices of 95 and 110 respectively, as well as the observed terminal stock price plotted as a solid vertical line, which moves depending on what the current stock price is at the given time until maturity.
+4. The collar profit against time against maturity.
