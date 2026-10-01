@@ -122,8 +122,8 @@ axes_stock.legend()
 axes_stock.grid()
 
 #options against time to maturity
-call_line, = axes_options.plot([], [], label="Call")
-put_line, = axes_options.plot([], [], label="Put")
+call_line, = axes_options.plot([], [], label="Call", color="green")
+put_line, = axes_options.plot([], [], label="Put", color="red")
 
 axes_options.set_xlim(0, maturity)
 axes_options.set_ylim(min(np.concatenate([put_values, call_values])), max(np.concatenate([put_values, call_values])))
@@ -164,6 +164,8 @@ time_slider = Slider(axes_slider, "Time to Maturity in Trading Days", 0, int(mat
 def update_time_slider(value):
 
     end = int(value) + 1
+
+    current_data = [elapsed_time[:end], ]
 
     current_time = elapsed_time[:end]
     current_stock = stock_values[:end]
