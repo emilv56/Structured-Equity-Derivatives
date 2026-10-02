@@ -8,6 +8,31 @@ In this project I have developed and analysed a protective collar strategy on an
 * sigma - the annualised volatility of the stock's returns, which I have assumed to be constant in this project and set to 20%.
 * call/put - a design idea I included to reuse the code containing the Black Scholes formula and value error checking.
 
+
+I used the following standard equations for the Black Scholes Pricing moddel:
+
+$$
+C = S_0 N(d_1) - K e^{-rT} N(d_2)
+$$
+
+$$
+P = K e^{-rT} N(-d_2) - S_0 N(-d_1)
+$$
+
+where
+
+$$
+d_1 = \frac{\ln(S_0/K) + \left(r + \frac{\sigma^2}{2}\right)T}{\sigma\sqrt{T}}
+$$
+
+and
+
+$$
+d_2 = d_1 - \sigma\sqrt{T}
+$$
+
+where C is the call premium and P is the put premium.
+
 Running the code will generate 4 plots and an interactive slider controlling the number of trading days until maturity (out of 252 trading days in the maturity of one year). The following information is shown on the figure:
 
 1. The stock price and collar value against time until maturity. For each plot, time until maturity is measured as a proportion in the interval [0, 1].
