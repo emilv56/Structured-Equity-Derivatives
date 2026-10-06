@@ -109,24 +109,24 @@ axes_maturity = fig.add_subplot(gridspec[1, 0])
 axes_profit = fig.add_subplot(gridspec[1, 1])
 
 
-#stock and collar value against time to maturity
-stock_line, = axes_stock.plot([], [], label="Stock")
-collar_line, = axes_stock.plot([], [], label="Collar")
+#stock against time to maturity
+stock_line1, = axes_stock.plot([], [], label="Stock")
 
 axes_stock.set_xlim(0, maturity)
-axes_stock.set_ylim(min(np.concatenate([stock_values, collar_values])), max(np.concatenate([stock_values, collar_values])))
-axes_stock.set_title("Collar Value")
+axes_stock.set_ylim(min(stock_values), max(stock_values))
+axes_stock.set_title("Stock Value")
 axes_stock.set_xlabel("Time to Maturity")
 axes_stock.set_ylabel("Value")
 axes_stock.legend()
 axes_stock.grid()
 
-#options against time to maturity
+#options and collar profit against time to maturity
 call_line, = axes_options.plot([], [], label="Call", color="green")
 put_line, = axes_options.plot([], [], label="Put", color="red")
+profit_line, = axes_options.plot([], [], label="Collar")
 
 axes_options.set_xlim(0, maturity)
-axes_options.set_ylim(min(np.concatenate([put_values, call_values])), max(np.concatenate([put_values, call_values])))
+axes_options.set_ylim(min(np.concatenate([put_values, call_values, collar_profit])), max(np.concatenate([put_values, call_values, collar_profit])))
 axes_options.set_title("Option Values")
 axes_options.set_xlabel("Time to Maturity")
 axes_options.set_ylabel("Value")
@@ -145,11 +145,12 @@ axes_maturity.set_ylabel("Profit")
 axes_maturity.grid()
 
 
-#collar profit against time to maturity
-profit_line, = axes_profit.plot([], [], label="Collar Profit")
+#stock and the stock plus the collar profit against time to maturity
+stock_line2, = axes_profit.plot(stock_values, time_to_maturity)
+collar_line, = axes_profit.plot([], [], label="Collar")
 
 axes_profit.set_xlim(0, maturity)
-axes_profit.set_ylim(min(collar_profit), max(collar_profit))
+axes_profit.set_ylim(min(np.concatenate([stock_values, collar_values])), max(np.concatenate([stock_values, collar_values])))
 axes_profit.set_title("Collar Profit")
 axes_profit.set_xlabel("Time to Maturity")
 axes_profit.set_ylabel("Profit")
@@ -174,7 +175,8 @@ def update_time_slider(value):
     current_collar = collar_values[:end]
     current_profit = collar_profit[:end]
 
-    stock_line.set_data(current_time, current_stock)
+    stock_line1.set_data(current_time, current_stock)
+    stock_line2.set_data(current_time, current_stock)
     collar_line.set_data(current_time, current_collar)
     call_line.set_data(current_time, current_call)
     put_line.set_data(current_time, current_put)
